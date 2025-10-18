@@ -7,7 +7,7 @@ namespace task4_part1.Controllers
     [ApiController]
     public class AuthorsController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<>
+        //[HttpGet]
+        //public IEnumerable<>
     }
 }
