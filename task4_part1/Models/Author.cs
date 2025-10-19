@@ -1,11 +1,18 @@
-﻿namespace task4_part1.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace task4_part1.Models
 {
     public class Author
     {
         public long Id { get; set; }   
+
+        [Required(ErrorMessage = "Укажите имя автора")]
         public string? Name { get; set; }
 
+        [Required(ErrorMessage = "Укажите фамилию автора")]
         public string? LastName{ get; set; }
+
+        [Required(ErrorMessage = "Укажите дату рождения автора")]
         public DateOnly DateOfBirth { get; set; }
     }
 }
