@@ -28,10 +28,6 @@
             {
                 _authors[index] = author;
             }
-            else
-            {
-                Console.WriteLine("Такого автора не найдено(");
-            }
         }
         public void Delete(int id)
         {
@@ -39,10 +35,6 @@
             if (author != null)
             {
                 _authors.Remove(author);
-            }
-            else
-            {
-                Console.WriteLine("Такого автора не найдено(");
             }
         }
     }

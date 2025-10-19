@@ -13,6 +13,6 @@ namespace task4_part1.Models
         public string? LastName{ get; set; }
 
         [Required(ErrorMessage = "Укажите дату рождения автора")]
-        public DateOnly DateOfBirth { get; set; }
+        public DateTime DateOfBirth { get; set; }
     }
 }

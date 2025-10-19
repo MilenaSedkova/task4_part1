@@ -8,9 +8,10 @@ namespace task4_part1.Models
 
         [Required(ErrorMessage = "Название книги обязательно")]
         public string? Title { get; set; }
-        public DateOnly PublishedYear { get; set; }
+        public DateTime PublishedYear { get; set; }
 
         [Required(ErrorMessage = "Необходимо указать автора")]
         public long AuthorId {  get; set; } 
     }
 }
+ 

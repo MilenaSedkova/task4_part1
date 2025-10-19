@@ -32,7 +32,7 @@ namespace task4_part1.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Author> Post(Author author)
+        public ActionResult<Author> Post([FromBody] Author author)
         {
             var newAuthor = _authorRepository.Add(author);
             return Ok(newAuthor);
