@@ -1,59 +1,59 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using task4_part1.Models;
+using task4_part1.Interfaces;
+namespace task4_part1.Controllers;
+using task4_part1.DTOs;
 
-namespace task4_part1.Controllers
+[Route("api/[controller]")]
+[ApiController]
+public class AuthorsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class AuthorsController : ControllerBase
+    private readonly IAuthorService _authorService;
+
+    public AuthorsController(IAuthorService authorService)
     {
-        private readonly IAuthorRepository _authorRepository;
+        _authorService = authorService;
+    }
+    [HttpGet]
+    public ActionResult<IEnumerable<AuthorDTO>> Get()
+    {
+        return Ok(_authorService.GetAll());
+    }
 
-        public AuthorsController(IAuthorRepository authorRepository)
+    [HttpGet("{id}")]
+    public ActionResult<AuthorDTO> GetId(int id)
+    {
+        var author = _authorService.GetById(id);
+        if (author == null)
         {
-            _authorRepository = authorRepository;
+            return NotFound();
         }
-        [HttpGet]
-        public ActionResult<IEnumerable<Author>> Get()
-        {
-            return Ok(_authorRepository.GetAll());
-        }
+        return Ok(author);
+    }
 
-        [HttpGet("{id}")]
-        public ActionResult<Author> GetId(int id)
-        {
-            var author = _authorRepository.GetById(id);
-            if (author == null)
-            {
-                return NotFound();
-            }
-            return Ok(author);
-        }
+    [HttpPost]
+    public ActionResult<AuthorDTO> Post([FromBody] AuthorDTO authorDTO)
+    {
+        var newAuthor = _authorService.Add(authorDTO);
+        return Ok(newAuthor);
+    }
 
-        [HttpPost]
-        public ActionResult<Author> Post([FromBody] Author author)
+    [HttpPut("{id}")]
+    public ActionResult Put(AuthorDTO authorDTO, int id)
+    {
+        if (authorDTO.Id != id)
         {
-            var newAuthor = _authorRepository.Add(author);
-            return Ok(newAuthor);
+            return BadRequest();
         }
+        _authorService.Update(authorDTO);
+        return NoContent();
+    }
 
-        [HttpPut("{id}")]
-        public ActionResult Put(Author author, int id)
-        {
-            if (author.Id != id)
-            {
-                return BadRequest();
-            }
-            _authorRepository.Update(author);
-            return NoContent();
-        }
-
-        [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
-        {
-            _authorRepository.Delete(id);
-            return NoContent();
-        }
+    [HttpDelete("{id}")]
+    public ActionResult Delete(int id)
+    {
+        _authorService.Delete(id);
+        return NoContent();
     }
 }
