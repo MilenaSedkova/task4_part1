@@ -1,9 +1,13 @@
-﻿namespace task4_part1.Models
+﻿using System.Xml.Linq;
+using task4_part1.Interfaces;
+using task4_part1.Models;
+
+namespace task4_part1.Repositories
 {
-    public class BooksRepository : IBooksRepository
+    public class BookRepository: IBookRepository
     {
-        private readonly List<Books>  _books = new List<Books>();
-        private int _id=1;
+        private readonly List<Books> _books = new List<Books>();
+        private int _id = 1;
 
         public IEnumerable<Books> GetAll()
         {
@@ -23,7 +27,7 @@
 
         public void Update(Books book)
         {
-            var index=_books.FindIndex(Book => Book.Id == book.Id);
+            var index = _books.FindIndex(Book => Book.Id == book.Id);
             if (index != -1)
             {
                 _books[index] = book;
@@ -46,4 +50,5 @@
             }
         }
     }
+}
 }

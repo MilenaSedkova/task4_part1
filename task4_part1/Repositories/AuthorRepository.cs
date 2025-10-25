@@ -1,9 +1,14 @@
-﻿namespace task4_part1.Models
+﻿using task4_part1.Interfaces;
+using task4_part1.Models;
+
+
+
+namespace task4_part1.Repositories
 {
-    public class AuthorRepository : IAuthorRepository
+    public class AuthorRepository: IAuthorRepository
     {
-        private readonly List<Author> _authors= new List<Author>();
-        private int _id=1;
+        private readonly List<Author> _authors = new List<Author>();
+        private int _id = 1;
 
         public IEnumerable<Author> GetAll()
         {
