@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using task4_part1.Models;
+using task4_part1.Interfaces;
+using task4_part1.DTOs;
 
 namespace task4_part1.Controllers
 {
@@ -8,22 +10,22 @@ namespace task4_part1.Controllers
     [ApiController]
     public class BooksController : ControllerBase
     {
-        private readonly IBooksRepository _booksRepository;
-        public BooksController(IBooksRepository booksRepository)
+        private readonly IBookService _booksService;
+        public BooksController(IBookService booksService)
         {
-            _booksRepository = booksRepository;
+            _booksService = booksService;
         }
 
         [HttpGet]
-        public ActionResult<IEnumerable<Books>> Get()
+        public ActionResult<IEnumerable<BookDTO>> Get()
         {
-            return Ok(_booksRepository.GetAll());
+            return Ok(_booksService.GetAll());
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Books> GetId(int id)
+        public ActionResult<BookDTO> GetId(int id)
         {
-            var book = _booksRepository.GetById(id);
+            var book = _booksService.GetById(id);
             if (book == null)
             {
                 return NotFound();
@@ -32,27 +34,27 @@ namespace task4_part1.Controllers
         }
 
         [HttpPost]
-        public ActionResult<Books> Post(Books book)
+        public ActionResult<Books> Post(BookDTO bookDTO)
         {
-            var newBook = _booksRepository.Add(book);
+            var newBook = _booksService.Add(bookDTO);
             return Ok(newBook);
         }
 
         [HttpPut("{id}")]
-        public ActionResult<Books> Put(Books book, int id)
+        public ActionResult<BookDTO> Put(BookDTO bookDTO, int id)
         {
-            if (book.Id != id)
+            if (bookDTO.Id != id)
             {
                 return BadRequest();
             }
-            _booksRepository.Update(book);
+            _booksService.Update(bookDTO);
             return NoContent();
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<Books> Delete(int id)
+        public ActionResult<BookDTO> Delete(int id)
         {
-            _booksRepository.Delete(id);
+            _booksService.Delete(id);
             return NoContent();
         }
     }
