@@ -1,4 +1,6 @@
-﻿namespace task4_part1.Models
+﻿using task4_part1.Models;
+
+namespace task4_part1.Interfaces
 {
     public interface IAuthorRepository
     {
@@ -7,6 +9,5 @@
         Author Add(Author author);
         void Update(Author author);
         void Delete(int id);
-
     }
 }
